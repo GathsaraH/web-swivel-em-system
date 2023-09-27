@@ -75,7 +75,7 @@ const EmployeeDataGrid = (): JSX.Element => {
                 flexDirection: "column",
                 width: "100%",
                 maxWidth: "300px",
-                maxHeight: "360px",
+                maxHeight: "385px",
               }}
             >
               <Image
@@ -85,18 +85,54 @@ const EmployeeDataGrid = (): JSX.Element => {
                 height={200}
               />
               <CardContent>
-                <Typography variant="subtitle1" component="div">
-                  {item.firstName}
-                </Typography>
-                <Typography variant="subtitle1" component="div">
-                  {item.email}
-                </Typography>
-                <Typography variant="subtitle1" component="div">
-                  {item.number}
-                </Typography>
-                <Typography variant="subtitle1" component="div">
-                  {item.gender}
-                </Typography>
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Name :
+                  </Typography>
+                  <Typography
+                    sx={{ marginLeft: "5px" }}
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    {item.firstName}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Email :
+                  </Typography>
+                  <Typography
+                    sx={{ marginLeft: "5px" }}
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    {item.email}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Number :
+                  </Typography>
+                  <Typography
+                    sx={{ marginLeft: "5px" }}
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    {item.number}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    Gender :
+                  </Typography>
+                  <Typography
+                    sx={{ marginLeft: "5px" }}
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    {item.gender}
+                  </Typography>
+                </Box>
                 <IconRootBox>
                   <IconButton
                     aria-label="Delete"

@@ -14,7 +14,7 @@ const RootStack = styled(Stack)(({ theme }) => ({
 const RootBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-around",
-
+  flexWrap: "wrap",
 }));
 export default function RootLayout({
   children,
