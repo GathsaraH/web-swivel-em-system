@@ -1,76 +1,123 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Button,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
+import { Box, Card, CardContent, Grid, Paper, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Image from "next/image";
+import { styled } from "@mui/material/styles";
 
 interface Data {
-  id: number;
-  name: string;
-  age: number;
+  id: string;
+  firstName: string;
+  lastName: string;
+  number: string;
+  email: string;
+  gender: string;
+  photo: string;
 }
 
 const initialData: Data[] = [
-  { id: 1, name: "John", age: 30 },
-  { id: 2, name: "Jane", age: 25 },
-  { id: 3, name: "Bob", age: 35 },
+  {
+    firstName: "Henri",
+    lastName: "Rodriguez",
+    email: "Darrin_Rippin@gmail.com",
+    number: "+94771277218",
+    gender: "Male",
+    id: "1",
+    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
+  },
+  {
+    firstName: "Lindsay",
+    lastName: "Herman",
+    email: "Ewald.Kunde@gmail.com",
+    number: "+94771274218",
+    gender: "Female",
+    id: "2",
+    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    number: "+94771277681",
+    gender: "Male",
+    id: "3",
+    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    number: "+94771277681",
+    gender: "Male",
+    id: "3",
+    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
+  },
 ];
+const IconRootBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  margin: theme.spacing(1),
+  justifyContent: "flex-end",
+  marginBottom: "40px !important",
+}));
+
 const EmployeeDataGrid = (): JSX.Element => {
-  const [viewMode, setViewMode] = useState<"grid" | "table">("table");
-  const [data, setData] = useState<Data[]>(initialData);
-
-  const toggleView = () => {
-    setViewMode(viewMode === "grid" ? "table" : "grid");
-  };
-
   return (
     <div>
-      <Button onClick={toggleView} variant="contained" color="primary">
-        Toggle View
-      </Button>
-      {viewMode === "grid" ? (
-        <Grid container spacing={2}>
-          {data.map((item) => (
-            <Grid item xs={3} key={item.id}>
-              <Paper elevation={3}>
-                <div>ID: {item.id}</div>
-                <div>Name: {item.name}</div>
-                <div>Age: {item.age}</div>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Age</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.id}</TableCell>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.age}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+      <Grid container spacing={12}>
+        {initialData.map((item: Data) => (
+          <Grid item container xs={3} key={item.id}>
+            <Card
+              elevation={5}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                maxWidth: "300px",
+                maxHeight: "360px",
+              }}
+            >
+              <Image
+                src={item.photo}
+                alt="Employee Photo"
+                width={300}
+                height={200}
+              />
+              <CardContent>
+                <Typography variant="subtitle1" component="div">
+                  {item.firstName}
+                </Typography>
+                <Typography variant="subtitle1" component="div">
+                  {item.email}
+                </Typography>
+                <Typography variant="subtitle1" component="div">
+                  {item.number}
+                </Typography>
+                <Typography variant="subtitle1" component="div">
+                  {item.gender}
+                </Typography>
+                <IconRootBox>
+                  <IconButton
+                    aria-label="Delete"
+                    style={{ backgroundColor: "#ed1700", marginRight: "30px" }}
+                  >
+                    <DeleteIcon style={{ color: "white" }} />
+                  </IconButton>
+                  <IconButton
+                    aria-label="Edit"
+                    style={{ backgroundColor: "#09ee80" }}
+                  >
+                    <EditIcon style={{ color: "white" }} />
+                  </IconButton>
+                </IconRootBox>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 };
+
 export default EmployeeDataGrid;

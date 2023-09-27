@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function appBarLabel(label: string) {
   return (
@@ -20,13 +20,23 @@ function appBarLabel(label: string) {
   );
 }
 
+const customTheme = createTheme({ 
+  palette: {
+    primary: {
+      main: "#6200ee", 
+    },
+  },
+});
+
 const TopBar = (): JSX.Element => {
   return (
-    <Stack >
-      <AppBar position="static" color="primary" enableColorOnDark>
-        {appBarLabel("Employee Manager")}
-      </AppBar>
-    </Stack>
+    <ThemeProvider theme={customTheme}> 
+      <Stack>
+        <AppBar position="static" color="primary" enableColorOnDark>
+          {appBarLabel("Employee Manager")}
+        </AppBar>
+      </Stack>
+    </ThemeProvider>
   );
 };
 

@@ -11,7 +11,11 @@ const RootStack = styled(Stack)(({ theme }) => ({
   minHeight: "100vh",
   flexGrow: 1,
 }));
+const RootBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-around",
 
+}));
 export default function RootLayout({
   children,
 }: {
@@ -21,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <RootStack spacing={2}>
         <TopBar />
-        <div>{children}</div>
+        <RootBox>{children}</RootBox>
       </RootStack>
     </html>
   );
