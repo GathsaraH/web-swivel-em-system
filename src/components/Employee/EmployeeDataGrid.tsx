@@ -1,6 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Card, CardContent, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Paper,
+  Typography,
+  withTheme,
+} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -51,43 +59,63 @@ const initialData: Data[] = [
     email: "Mauricio.Stehr@yahoo.com",
     number: "+94771277681",
     gender: "Male",
-    id: "3",
+    id: "4",
+    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    number: "+94771277681",
+    gender: "Male",
+    id: "5",
     photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
   },
 ];
+
+const EmployeeCard = styled(Card)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  maxHeight: "320px",
+  boxShadow: theme.shadows[5],
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+}));
+const InfoBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+}));
+
 const IconRootBox = styled(Box)(({ theme }) => ({
   display: "flex",
-  margin: theme.spacing(1),
   justifyContent: "flex-end",
-  marginBottom: "40px !important",
+  marginTop: "-4px !important",
+  marginRight: "-10px !important",
 }));
 
 const EmployeeDataGrid = (): JSX.Element => {
   return (
     <div>
-      <Grid container spacing={12}>
-        {initialData.map((item: Data) => (
-          <Grid item container xs={3} key={item.id}>
-            <Card
-              elevation={5}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                maxWidth: "300px",
-                maxHeight: "385px",
-              }}
-            >
+      <Grid container spacing={2.5}>
+        {initialData.map((item) => (
+          <Grid item xs={12} sm={6} md={2.4} key={item.id}>
+            {" "}
+            {/* Display 5 cards in a row */}
+            <EmployeeCard elevation={5}>
               <Image
                 src={item.photo}
                 alt="Employee Photo"
-                width={300}
-                height={200}
+                width={280}
+                height={150}
+                style={{
+                  width: "100%",
+                }}
               />
               <CardContent>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                <InfoBox>
                   <Typography variant="subtitle1" color="text.secondary">
-                    Name :
+                    Name:
                   </Typography>
                   <Typography
                     sx={{ marginLeft: "5px" }}
@@ -96,10 +124,10 @@ const EmployeeDataGrid = (): JSX.Element => {
                   >
                     {item.firstName}
                   </Typography>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                </InfoBox>
+                <InfoBox>
                   <Typography variant="subtitle1" color="text.secondary">
-                    Email :
+                    Email:
                   </Typography>
                   <Typography
                     sx={{ marginLeft: "5px" }}
@@ -108,10 +136,10 @@ const EmployeeDataGrid = (): JSX.Element => {
                   >
                     {item.email}
                   </Typography>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                </InfoBox>
+                <InfoBox>
                   <Typography variant="subtitle1" color="text.secondary">
-                    Number :
+                    Number:
                   </Typography>
                   <Typography
                     sx={{ marginLeft: "5px" }}
@@ -120,10 +148,10 @@ const EmployeeDataGrid = (): JSX.Element => {
                   >
                     {item.number}
                   </Typography>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                </InfoBox>
+                <InfoBox>
                   <Typography variant="subtitle1" color="text.secondary">
-                    Gender :
+                    Gender:
                   </Typography>
                   <Typography
                     sx={{ marginLeft: "5px" }}
@@ -132,23 +160,23 @@ const EmployeeDataGrid = (): JSX.Element => {
                   >
                     {item.gender}
                   </Typography>
-                </Box>
+                </InfoBox>
                 <IconRootBox>
                   <IconButton
                     aria-label="Delete"
-                    style={{ backgroundColor: "#ed1700", marginRight: "30px" }}
+                    style={{ backgroundColor: "#ed1700", marginRight: "10px" }}
                   >
                     <DeleteIcon style={{ color: "white" }} />
                   </IconButton>
                   <IconButton
                     aria-label="Edit"
-                    style={{ backgroundColor: "#09ee80" }}
+                    style={{ backgroundColor: "#09ee80", marginLeft: "6px" }}
                   >
                     <EditIcon style={{ color: "white" }} />
                   </IconButton>
                 </IconRootBox>
               </CardContent>
-            </Card>
+            </EmployeeCard>
           </Grid>
         ))}
       </Grid>
