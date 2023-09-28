@@ -9,9 +9,9 @@ const nextConfig = {
       },
     ];
   },
-  images:{
-    domains: ['mui.com','randomuser.me','api.multiavatar.com','api.dicebear.com','i.ibb.co'],
-  }
+  images: {
+    domains: ["i.ibb.co"],
+  },
 };
 
 module.exports = nextConfig;

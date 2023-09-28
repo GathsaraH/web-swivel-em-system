@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "next": "latest",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.11",
@@ -20,20 +23,17 @@
     "env-cmd": "^10.1.0",
     "formik": "^2.4.5",
     "formik-mui": "^5.0.0-alpha.0",
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
     "react-redux": "^8.1.2",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.2.3",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
-    "@types/node": "latest",
+    "typescript": "latest",
     "@types/react": "latest",
+    "@types/node": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",
-    "eslint-config-next": "latest",
-    "typescript": "latest"
+    "eslint-config-next": "latest"
   }
 }

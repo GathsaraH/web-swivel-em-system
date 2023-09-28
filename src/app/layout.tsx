@@ -1,8 +1,10 @@
 "use client";
-import TopBar from "@/components/TopBar/TopBar";
-import { Box, Stack } from "@mui/material";
+import { Poppins } from "next/font/google";
 import { styled } from "@mui/material/styles";
 import { ReduxProvider } from "../redux/provider";
+import { Box, Stack } from "@mui/material";
+import TopBar from "@/components/TopBar/TopBar";
+const popins = Poppins({ subsets: ["latin"], weight: "400" });
 const RootStack = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
@@ -23,12 +25,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <RootStack spacing={2}>
-        <TopBar />
-        <RootBox>
-          <ReduxProvider>{children}</ReduxProvider>
-        </RootBox>
-      </RootStack>
+      <body className={popins.className}>
+        <RootStack spacing={2}>
+          <TopBar />
+          <RootBox>
+            <ReduxProvider>{children}</ReduxProvider>
+          </RootBox>
+        </RootStack>
+      </body>
     </html>
   );
 }

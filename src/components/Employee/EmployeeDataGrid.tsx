@@ -106,7 +106,7 @@ const EmployeeDataGrid = (): JSX.Element => {
               <Image
                 src={item.photo}
                 alt="Employee Photo"
-                width={280}
+                width={250}
                 height={150}
                 style={{
                   width: "100%",
