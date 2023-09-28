@@ -4,8 +4,8 @@ import EmployeeTable from "@/components/Employee/EmployeeTable";
 const EmployeeList = (): JSX.Element => {
   return (
     <div>
-      <EmployeeDataGrid />
-      {/* <EmployeeTable /> */}
+      {/* <EmployeeDataGrid /> */}
+      <EmployeeTable />
     </div>
   );
 };
