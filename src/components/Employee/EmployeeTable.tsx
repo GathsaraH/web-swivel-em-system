@@ -79,7 +79,7 @@ const RootTableCell = styled(TableCell)(({ theme }) => ({
   color: "white",
   fontWeight: "bold",
   textAlign: "center",
-  verticalAlign: "middle", 
+  verticalAlign: "middle",
 }));
 const IconRootBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -96,7 +96,7 @@ const AxisHeaderCell = styled(TableCell)(({ theme }) => ({
 const EmployeeTable = (): JSX.Element => {
   return (
     <div>
-      <TableContainer sx={{ width: "80rem" }} component={Paper}>
+      <TableContainer sx={{ width: "100%" }} component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
