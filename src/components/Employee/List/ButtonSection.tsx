@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { employeeActions } from "@/redux/employee/slice";
 import { ListViewEnum } from "@/redux/employee/type";
+import { useRouter } from "next/navigation";
 
 const ButtonRootBox = styled(Box)(({ theme }) => ({}));
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -19,11 +20,12 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 const ButtonSection = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const listView = useAppSelector(
     (state) => state.employeeReducer.listViewAction
   );
 
-  function handleGrideViewChange():void {
+  function handleGrideViewChange(): void {
     console.log("Switching to Grid View");
     dispatch(
       employeeActions.changeListView({
@@ -32,7 +34,7 @@ const ButtonSection = (): JSX.Element => {
     );
   }
 
-  function handleTableViewChange():void {
+  function handleTableViewChange(): void {
     console.log("Switching to Table View");
     dispatch(
       employeeActions.changeListView({
@@ -43,7 +45,7 @@ const ButtonSection = (): JSX.Element => {
 
   return (
     <ButtonRootBox>
-      <StyledButton onClick={() => console.log("Hi")} variant="contained">
+      <StyledButton onClick={() => router.push('/employee/add')} variant="contained">
         ADD EMPLOYEE
       </StyledButton>
       {listView === ListViewEnum.GRID_VIEW ? (
