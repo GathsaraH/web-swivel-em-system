@@ -15,6 +15,8 @@ import {
 import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
 import ButtonSection from "../List/ButtonSection";
+import { useDispatch } from "react-redux";
+import { employeeActions } from "@/redux/employee/slice";
 
 const RootBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -62,7 +64,6 @@ const StyledTypo = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   color: "black",
   fontSize: "24px",
-
 }));
 const StyledButtonBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -112,8 +113,9 @@ const initialValues: FormValues = {
 };
 
 const EmployeeForm = (): JSX.Element => {
+  const dispatch = useDispatch();
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    dispatch(employeeActions.addEmployee(values));
   };
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
