@@ -10,7 +10,6 @@ import {
   SelectedEmployeeType,
 } from "./type";
 
-
 /**
  * Defines the initial state for the employee slice of the Redux store.
  */
@@ -112,8 +111,6 @@ const employeeSlice = createSlice({
       state,
       action: PayloadAction<DeleteEmployeeConformationField>
     ) => {
-      console.log({ action });
-
       state.deleteConformationDetails.isModelOpen = action.payload.isModelOpen;
       state.deleteConformationDetails.employeeId = action.payload.employeeId;
     },

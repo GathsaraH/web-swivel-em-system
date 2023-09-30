@@ -61,7 +61,6 @@ export function* watchAddEmployee({
   payload,
 }: PayloadAction<AddEmployeeType>): Generator<any, void, any> {
   try {
-    console.log(payload);
     const response = yield call(callAddEmployee, payload);
     if (response.status === 201) {
       successNotification("Employee added successfully!");
@@ -101,9 +100,10 @@ export function* watchDeleteEmployee({
 }: PayloadAction<{ employeeId: string }>): Generator<any, void, any> {
   try {
     const response = yield call(callDeleteEmployee, payload.employeeId);
-    if (response.status === 201) {
-      yield put(employeeActions.addEmployeeSuccess());
+    if (response.status === 200) {
       successNotification("Employee deleted successfully!");
+      yield put(employeeActions.getAllEmployee());
+      yield put(employeeActions.deleteEmployeeSuccess());
       yield put(
         employeeActions.handleDeleteModel({
           isModelOpen: false,
@@ -112,16 +112,16 @@ export function* watchDeleteEmployee({
       );
     }
   } catch (error: any) {
-    yield put(employeeActions.editEmployeeFiled(error.message));
+    yield put(employeeActions.deleteEmployeeFiled(error.message));
     errorNotification("Something went wrong! Try again later");
   }
 }
 
 export function* watchEmployeeSaga() {
   yield takeLatest(employeeActions.getAllEmployee, watchGetAllEmployee);
-  yield takeEvery(employeeActions.addEmployee, watchAddEmployee);
-  yield takeEvery(employeeActions.editEmployee, watchEditEmployee);
-  yield takeEvery(employeeActions.deleteEmployee, watchDeleteEmployee);
+  yield takeLatest(employeeActions.addEmployee, watchAddEmployee);
+  yield takeLatest(employeeActions.editEmployee, watchEditEmployee);
+  yield takeLatest(employeeActions.deleteEmployee, watchDeleteEmployee);
 }
 const EmployeeSaga = watchEmployeeSaga;
 export default EmployeeSaga;
