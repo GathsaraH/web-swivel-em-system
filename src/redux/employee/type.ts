@@ -42,6 +42,7 @@ export interface GetAllEmployeeType {
 export interface EditEmployeeType {
   employeeId: string;
   data: EditEmployeeDataType;
+  router: any;
 }
 
 export interface SelectedEmployeeType {

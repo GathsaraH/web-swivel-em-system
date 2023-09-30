@@ -51,7 +51,8 @@ export function* watchGetAllEmployee(): Generator<any, void, any> {
     if (response.status === 200) {
       yield put(employeeActions.getAllEmployeeSuccess({ data: response.data }));
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(employeeActions.getAllEmployeeFiled(error.message));
     errorNotification("Something went wrong! Try again later");
   }
 }
@@ -63,12 +64,13 @@ export function* watchAddEmployee({
     console.log(payload);
     const response = yield call(callAddEmployee, payload);
     if (response.status === 201) {
-      yield put(employeeActions.getAllEmployee());
       successNotification("Employee added successfully!");
+      yield put(employeeActions.getAllEmployee());
       yield put(employeeActions.addEmployeeSuccess());
       payload.router;
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(employeeActions.addEmployeeFiled(error.message));
     errorNotification("Something went wrong! Try again later");
   }
 }
@@ -82,11 +84,14 @@ export function* watchEditEmployee({
       payload.employeeId,
       payload.data
     );
-    if (response.status === 201) {
-      yield put(employeeActions.addEmployeeSuccess());
+    if (response.status === 200) {
       successNotification("Employee edit successfully!");
+      yield put(employeeActions.getAllEmployee());
+      yield put(employeeActions.addEmployeeSuccess());
+      payload.router;
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(employeeActions.editEmployeeFiled(error.message));
     errorNotification("Something went wrong! Try again later");
   }
 }
@@ -106,7 +111,8 @@ export function* watchDeleteEmployee({
         })
       );
     }
-  } catch (error) {
+  } catch (error: any) {
+    yield put(employeeActions.editEmployeeFiled(error.message));
     errorNotification("Something went wrong! Try again later");
   }
 }

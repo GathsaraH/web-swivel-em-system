@@ -139,6 +139,7 @@ const EmployeeForm = (): JSX.Element => {
         employeeActions.editEmployee({
           employeeId: selectedEmployee.employeeId,
           data: values,
+          router: router.push(RootRoutes.EMPLOYEE_LIST),
         })
       );
     }
