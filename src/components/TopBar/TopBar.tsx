@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
@@ -6,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
+import { RootRoutes } from "@/util/routes";
 
 function appBarLabel(label: string) {
   return (
@@ -20,20 +23,27 @@ function appBarLabel(label: string) {
   );
 }
 
-const customTheme = createTheme({ 
+const customTheme = createTheme({
   palette: {
     primary: {
-      main: "#6200ee", 
+      main: "#6200ee",
     },
   },
 });
 
 const TopBar = (): JSX.Element => {
+  const pathname = usePathname();
   return (
-    <ThemeProvider theme={customTheme}> 
+    <ThemeProvider theme={customTheme}>
       <Stack>
         <AppBar position="static" color="primary" enableColorOnDark>
-          {appBarLabel("Employee Manager")}
+          {appBarLabel(
+            pathname === RootRoutes.ADD_EMPLOYEE
+              ? "ADD EMPLOYEE"
+              : pathname === RootRoutes.EDIT_EMPLOYEE
+              ? "EDIT EMPLOYEE"
+              : "EMPLOYEE LIST"
+          )}
         </AppBar>
       </Stack>
     </ThemeProvider>

@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
 import { employeeActions } from "@/redux/employee/slice";
 import { ListViewEnum } from "@/redux/employee/type";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { RootRoutes } from "@/util/routes";
 
 const ButtonRootBox = styled(Box)(({ theme }) => ({}));
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -19,14 +20,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 const ButtonSection = (): JSX.Element => {
+  const pathname = usePathname();
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const listView = useAppSelector(
     (state) => state.employeeReducer.listViewAction
   );
-
   function handleGrideViewChange(): void {
-    console.log("Switching to Grid View");
     dispatch(
       employeeActions.changeListView({
         listViewAction: ListViewEnum.GRID_VIEW,
@@ -35,7 +35,6 @@ const ButtonSection = (): JSX.Element => {
   }
 
   function handleTableViewChange(): void {
-    console.log("Switching to Table View");
     dispatch(
       employeeActions.changeListView({
         listViewAction: ListViewEnum.TABLE_VIEW,
@@ -43,28 +42,49 @@ const ButtonSection = (): JSX.Element => {
     );
   }
 
+  function handleListView(): void {
+    dispatch(
+      employeeActions.changeListView({
+        listViewAction: ListViewEnum.TABLE_VIEW,
+      })
+    );
+    router.push(RootRoutes.EMPLOYEE_LIST);
+  }
+
   return (
     <ButtonRootBox>
-      <StyledButton onClick={() => router.push('/employee/add')} variant="contained">
-        ADD EMPLOYEE
-      </StyledButton>
-      {listView === ListViewEnum.GRID_VIEW ? (
-        <IconButton
-          aria-label="Grid View"
-          style={{ backgroundColor: "#5100c5", marginLeft: "6px" }}
-          onClick={handleTableViewChange}
-        >
-          <AppsIcon style={{ color: "white" }} />
-        </IconButton>
-      ) : (
-        <IconButton
-          aria-label="Table View"
-          style={{ backgroundColor: "#5100c5", marginLeft: "6px" }}
-          onClick={handleGrideViewChange}
-        >
-          <ViewListIcon style={{ color: "white" }} />
-        </IconButton>
+      {pathname === RootRoutes.ADD_EMPLOYEE && (
+        <StyledButton onClick={handleListView} variant="contained">
+          LIST VIEW
+        </StyledButton>
       )}
+      {pathname === RootRoutes.EMPLOYEE_LIST && (
+        <StyledButton
+          onClick={() => router.push(RootRoutes.ADD_EMPLOYEE)}
+          variant="contained"
+        >
+          ADD EMPLOYEE
+        </StyledButton>
+      )}
+
+      {pathname === RootRoutes.EMPLOYEE_LIST &&
+        (listView === ListViewEnum.GRID_VIEW ? (
+          <IconButton
+            aria-label="Grid View"
+            style={{ backgroundColor: "#5100c5", marginLeft: "6px" }}
+            onClick={handleTableViewChange}
+          >
+            <AppsIcon style={{ color: "white" }} />
+          </IconButton>
+        ) : (
+          <IconButton
+            aria-label="Table View"
+            style={{ backgroundColor: "#5100c5", marginLeft: "6px" }}
+            onClick={handleGrideViewChange}
+          >
+            <ViewListIcon style={{ color: "white" }} />
+          </IconButton>
+        ))}
     </ButtonRootBox>
   );
 };

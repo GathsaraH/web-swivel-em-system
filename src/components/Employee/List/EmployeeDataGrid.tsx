@@ -100,8 +100,6 @@ const EmployeeDataGrid = (): JSX.Element => {
       <Grid container spacing={2.5}>
         {initialData.map((item) => (
           <Grid item xs={12} sm={6} md={2.4} key={item.id}>
-            {" "}
-            {/* Display 5 cards in a row */}
             <EmployeeCard elevation={5}>
               <Image
                 src={item.photo}
