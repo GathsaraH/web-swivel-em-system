@@ -13,16 +13,27 @@ import {
   AddEmployeeType,
   EditEmployeeDataType,
   EditEmployeeType,
+  RequestGetAllEmployeeType,
+  SearchTypeEnum,
 } from "./type";
-import { decodeAxiosRequest } from "@/util/decodeAxiosRequest";
+import {
+  decodeParamAxiosRequest,
+  decodeQueryAxiosRequest,
+} from "@/util/decodeAxiosRequest";
 import RootLayout from "@/app/layout";
 import { RootRoutes } from "@/util/routes";
 
 /**
  * @async_function
  */
-async function callGetAllEmployee() {
-  return await authorizedGetRequest(ApiEndPointsUrl.GET_ALL_EMPLOYEE);
+async function callGetAllEmployee(searchTerm: RequestGetAllEmployeeType) {
+  const url = decodeQueryAxiosRequest({
+    url: ApiEndPointsUrl.GET_ALL_EMPLOYEE,
+    params: {
+      searchTerm: searchTerm.searchTerm,
+    },
+  });
+  return await authorizedGetRequest(url);
 }
 async function callAddEmployee(data: AddEmployeeType) {
   //Delete Router param
@@ -33,11 +44,13 @@ async function callEditEmployee(
   employeeId: string,
   data: EditEmployeeDataType
 ) {
-  const url = decodeAxiosRequest(ApiEndPointsUrl.EDIT_EMPLOYEE, { employeeId });
+  const url = decodeParamAxiosRequest(ApiEndPointsUrl.EDIT_EMPLOYEE, {
+    employeeId,
+  });
   return await authorizedPutRequest(url, data);
 }
 async function callDeleteEmployee(employeeId: string) {
-  const url = decodeAxiosRequest(ApiEndPointsUrl.DELETE_EMPLOYEE, {
+  const url = decodeParamAxiosRequest(ApiEndPointsUrl.DELETE_EMPLOYEE, {
     employeeId,
   });
   return await authorizedDeleteRequest(url);
@@ -45,9 +58,11 @@ async function callDeleteEmployee(employeeId: string) {
 /**
  * @saga_function
  */
-export function* watchGetAllEmployee(): Generator<any, void, any> {
+export function* watchGetAllEmployee({
+  payload,
+}: PayloadAction<RequestGetAllEmployeeType>): Generator<any, void, any> {
   try {
-    const response = yield call(callGetAllEmployee);
+    const response = yield call(callGetAllEmployee, payload);
     if (response.status === 200) {
       yield put(employeeActions.getAllEmployeeSuccess({ data: response.data }));
     }
@@ -64,7 +79,9 @@ export function* watchAddEmployee({
     const response = yield call(callAddEmployee, payload);
     if (response.status === 201) {
       successNotification("Employee added successfully!");
-      yield put(employeeActions.getAllEmployee());
+      yield put(
+        employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
+      );
       yield put(employeeActions.addEmployeeSuccess());
       payload.router;
     }
@@ -85,7 +102,9 @@ export function* watchEditEmployee({
     );
     if (response.status === 200) {
       successNotification("Employee edit successfully!");
-      yield put(employeeActions.getAllEmployee());
+      yield put(
+        employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
+      );
       yield put(employeeActions.addEmployeeSuccess());
       payload.router;
     }
@@ -102,7 +121,9 @@ export function* watchDeleteEmployee({
     const response = yield call(callDeleteEmployee, payload.employeeId);
     if (response.status === 200) {
       successNotification("Employee deleted successfully!");
-      yield put(employeeActions.getAllEmployee());
+      yield put(
+        employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
+      );
       yield put(employeeActions.deleteEmployeeSuccess());
       yield put(
         employeeActions.handleDeleteModel({

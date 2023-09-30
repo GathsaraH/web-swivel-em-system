@@ -3,8 +3,10 @@ import ButtonSection from "@/components/ButtonSection/ButtonSection";
 import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp";
 import EmployeeDataGrid from "@/components/Employee/List/EmployeeDataGrid";
 import EmployeeTable from "@/components/Employee/List/EmployeeTable";
+import Loader from "@/components/Loader/Loader";
+import SearchBar from "@/components/SearchBar/SearchBar";
 import { employeeActions } from "@/redux/employee/slice";
-import { ListViewEnum } from "@/redux/employee/type";
+import { ListViewEnum, SearchTypeEnum } from "@/redux/employee/type";
 import { useAppSelector } from "@/redux/store";
 import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -32,7 +34,7 @@ const EmployeeList = (): JSX.Element => {
     (state) => state.employeeReducer
   );
   useEffect(() => {
-    dispatch(employeeActions.getAllEmployee());
+    dispatch(employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY }));
   }, []);
 
   return (
@@ -48,26 +50,8 @@ const EmployeeList = (): JSX.Element => {
         )}
         <ConformationPopUp />
       </ListRoot>
-      <Backdrop
-        sx={{
-          color: "#fff",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={isLoading}
-      >
-        <CircularProgress color="inherit" />
-        <Typography
-          sx={{
-            marginTop: 2,
-            fontStyle: "bold",
-          }}
-        >
-          Loading...
-        </Typography>
-      </Backdrop>
+      <Loader />
+      <SearchBar />
     </RootBox>
   );
 };

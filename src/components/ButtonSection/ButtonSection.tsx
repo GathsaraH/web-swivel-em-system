@@ -2,6 +2,7 @@
 import { styled } from "@mui/material/styles";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import AppsIcon from "@mui/icons-material/Apps";
+import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, IconButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { AppDispatch, useAppSelector } from "@/redux/store";
@@ -52,12 +53,22 @@ const ButtonSection = (): JSX.Element => {
   }
   function handleAddEmployee(): void {
     dispatch(employeeActions.resetSelectedEmployee());
-
     router.push(RootRoutes.ADD_EMPLOYEE);
   }
-
+  function handleSearchEmployee(): void {
+    dispatch(employeeActions.triggerSearchBar());
+  }
   return (
     <ButtonRootBox>
+      {pathname === RootRoutes.EMPLOYEE_LIST && (
+        <IconButton
+          aria-label="Grid View"
+          style={{ backgroundColor: "#5100c5", marginRight: "6px" }}
+          onClick={handleSearchEmployee}
+        >
+          <SearchIcon style={{ color: "white" }} />
+        </IconButton>
+      )}
       {pathname !== RootRoutes.EMPLOYEE_LIST && (
         <StyledButton onClick={handleListView} variant="contained">
           LIST VIEW
@@ -68,7 +79,6 @@ const ButtonSection = (): JSX.Element => {
           ADD EMPLOYEE
         </StyledButton>
       )}
-
       {pathname === RootRoutes.EMPLOYEE_LIST &&
         (listView === ListViewEnum.GRID_VIEW ? (
           <IconButton

@@ -29,6 +29,7 @@ export async function authorizedPostRequest(
 
 export async function authorizedGetRequest(
   url: string
+  
 ): Promise<AxiosResponse> {
   return axiosApiInstance
     .get(url)

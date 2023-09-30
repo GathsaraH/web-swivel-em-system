@@ -7,6 +7,7 @@ import {
   InitialEmployeeSlice,
   ListViewActionType,
   ListViewEnum,
+  RequestGetAllEmployeeType,
   SelectedEmployeeType,
 } from "./type";
 
@@ -34,6 +35,7 @@ export const initialEmployeeState: InitialEmployeeSlice = {
   },
   allEmployee: [],
   isLoading: false,
+  triggerSearchBar: false,
   listViewAction: ListViewEnum.TABLE_VIEW,
 };
 
@@ -54,7 +56,7 @@ const employeeSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload || "Something went wrong";
     },
-    getAllEmployee: (state) => {
+    getAllEmployee: (state,action: PayloadAction<RequestGetAllEmployeeType>) => {
       state.isLoading = true;
     },
     getAllEmployeeSuccess: (
@@ -113,6 +115,9 @@ const employeeSlice = createSlice({
     ) => {
       state.deleteConformationDetails.isModelOpen = action.payload.isModelOpen;
       state.deleteConformationDetails.employeeId = action.payload.employeeId;
+    },
+    triggerSearchBar: (state) => {
+      state.triggerSearchBar = !state.triggerSearchBar;
     },
   },
 });

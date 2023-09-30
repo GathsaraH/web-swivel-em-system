@@ -12,6 +12,7 @@ export interface InitialEmployeeSlice {
   allEmployee: SelectedEmployeeType[];
   selectedEmployee: SelectedEmployeeType;
   deleteConformationDetails: DeleteEmployeeConformationField;
+  triggerSearchBar: boolean;
 }
 export interface ListViewActionType {
   listViewAction: ListViewEnum;
@@ -57,4 +58,11 @@ export interface SelectedEmployeeType {
 export interface DeleteEmployeeConformationField {
   employeeId: string;
   isModelOpen: boolean;
+}
+export enum SearchTypeEnum {
+  NO_QUERY = "no_query",
+  WITH_QUERY = "with_query",
+}
+export interface RequestGetAllEmployeeType {
+  searchTerm: SearchTypeEnum | string;
 }
