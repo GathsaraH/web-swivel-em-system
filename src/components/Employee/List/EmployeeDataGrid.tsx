@@ -14,7 +14,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
-
+import Avatar from "react-avatar";
+import { generateAvatar } from "@/util/generateAvatar";
 interface Data {
   id: string;
   firstName: string;
@@ -101,14 +102,15 @@ const EmployeeDataGrid = (): JSX.Element => {
         {initialData.map((item) => (
           <Grid item xs={12} sm={6} md={2.4} key={item.id}>
             <EmployeeCard elevation={5}>
-              <Image
-                src={item.photo}
-                alt="Employee Photo"
-                width={250}
-                height={150}
+              <Avatar
+                size="100"
                 style={{
-                  width: "100%",
+                  display: "flex",
+                  marginLeft: "80px",
+                  marginTop: "10px",
                 }}
+                name={item.firstName}
+                src={generateAvatar()}
               />
               <CardContent>
                 <InfoBox>

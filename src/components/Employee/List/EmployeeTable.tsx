@@ -17,6 +17,9 @@ import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { generateAvatar } from "@/util/generateAvatar";
+import Avatar from "react-avatar";
+
 interface Data {
   id: string;
   firstName: string;
@@ -113,7 +116,7 @@ const EmployeeTable = (): JSX.Element => {
             {initialData.map((item) => (
               <TableRow key={item.id}>
                 <AxisHeaderCell>
-                  <Image
+                  {/* <Image
                     src={item.photo}
                     alt={item.firstName}
                     width={50}
@@ -121,6 +124,16 @@ const EmployeeTable = (): JSX.Element => {
                     style={{
                       borderRadius: "50%",
                     }}
+                  /> */}
+                  <Avatar
+                    size="50"
+                    style={{
+                      display: "flex",
+                      marginLeft: "40px",
+                      marginTop: "10px",
+                    }}
+                    name={item.firstName}
+                    src={generateAvatar()}
                   />
                 </AxisHeaderCell>
                 <AxisHeaderCell>{item.firstName}</AxisHeaderCell>
