@@ -1,4 +1,5 @@
 "use client";
+import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp";
 import ButtonSection from "@/components/Employee/List/ButtonSection";
 import EmployeeDataGrid from "@/components/Employee/List/EmployeeDataGrid";
 import EmployeeTable from "@/components/Employee/List/EmployeeTable";
@@ -37,6 +38,7 @@ const EmployeeList = (): JSX.Element => {
         ) : (
           <EmployeeTable />
         )}
+        <ConformationPopUp />
       </ListRoot>
     </RootBox>
   );

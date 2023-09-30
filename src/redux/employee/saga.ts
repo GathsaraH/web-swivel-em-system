@@ -92,6 +92,12 @@ export function* watchDeleteEmployee({
     if (response.status === 201) {
       yield put(employeeActions.addEmployeeSuccess());
       successNotification("Employee deleted successfully!");
+      yield put(
+        employeeActions.handleDeleteModel({
+          isModelOpen: false,
+          employeeId: "",
+        })
+      );
     }
   } catch (error) {
     errorNotification("Something went wrong! Try again later");

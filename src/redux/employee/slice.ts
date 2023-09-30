@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   AddEmployeeType,
+  DeleteEmployeeConformationField,
   EditEmployeeType,
   GetAllEmployeeType,
   InitialEmployeeSlice,
@@ -69,6 +70,10 @@ export const initialEmployeeState: InitialEmployeeSlice = {
     lastName: "",
     phoneNumber: "",
     employeeId: "",
+  },
+  deleteConformationDetails: {
+    employeeId: "",
+    isModelOpen: false,
   },
   allEmployee: initialData,
   isLoading: false,
@@ -144,6 +149,15 @@ const employeeSlice = createSlice({
       state.selectedEmployee.phoneNumber = "";
       state.selectedEmployee.gender = "";
       state.selectedEmployee.employeeId = "";
+    },
+    handleDeleteModel: (
+      state,
+      action: PayloadAction<DeleteEmployeeConformationField>
+    ) => {
+      console.log({ action });
+
+      state.deleteConformationDetails.isModelOpen = action.payload.isModelOpen;
+      state.deleteConformationDetails.employeeId = action.payload.employeeId;
     },
   },
 });

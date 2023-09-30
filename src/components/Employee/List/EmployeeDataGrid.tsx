@@ -57,7 +57,9 @@ const EmployeeDataGrid = (): JSX.Element => {
     router.push(`${RootRoutes.EDIT_EMPLOYEE}/${rowData.employeeId}`);
   };
   const deleteEmployee = (employeeId: string) => {
-    dispatch(employeeActions.deleteEmployee({ employeeId }));
+    dispatch(
+      employeeActions.handleDeleteModel({ isModelOpen: true, employeeId })
+    );
   };
   return (
     <div>

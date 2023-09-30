@@ -9,6 +9,7 @@ export interface InitialEmployeeSlice {
   error: string;
   allEmployee: SelectedEmployeeType[];
   selectedEmployee: SelectedEmployeeType;
+  deleteConformationDetails:DeleteEmployeeConformationField
 }
 export interface ListViewActionType {
   listViewAction: ListViewEnum;
@@ -47,4 +48,9 @@ export interface SelectedEmployeeType {
   email: string;
   phoneNumber: string;
   gender: string;
+}
+
+export interface DeleteEmployeeConformationField {
+  employeeId: string;
+  isModelOpen: boolean;
 }
