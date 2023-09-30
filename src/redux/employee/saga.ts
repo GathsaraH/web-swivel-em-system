@@ -15,6 +15,8 @@ import {
   EditEmployeeType,
 } from "./type";
 import { decodeAxiosRequest } from "@/util/decodeAxiosRequest";
+import RootLayout from "@/app/layout";
+import { RootRoutes } from "@/util/routes";
 
 /**
  * @async_function
@@ -23,6 +25,8 @@ async function callGetAllEmployee() {
   return await authorizedGetRequest(ApiEndPointsUrl.GET_ALL_EMPLOYEE);
 }
 async function callAddEmployee(data: AddEmployeeType) {
+  //Delete Router param
+  delete data.router;
   return await authorizedPostRequest(ApiEndPointsUrl.ADD_EMPLOYEE, data);
 }
 async function callEditEmployee(
@@ -45,7 +49,7 @@ export function* watchGetAllEmployee(): Generator<any, void, any> {
   try {
     const response = yield call(callGetAllEmployee);
     if (response.status === 200) {
-      yield put(employeeActions.getAllEmployeeSuccess(response.data));
+      yield put(employeeActions.getAllEmployeeSuccess({ data: response.data }));
     }
   } catch (error) {
     errorNotification("Something went wrong! Try again later");
@@ -56,10 +60,13 @@ export function* watchAddEmployee({
   payload,
 }: PayloadAction<AddEmployeeType>): Generator<any, void, any> {
   try {
+    console.log(payload);
     const response = yield call(callAddEmployee, payload);
     if (response.status === 201) {
-      yield put(employeeActions.addEmployeeSuccess());
+      yield put(employeeActions.getAllEmployee());
       successNotification("Employee added successfully!");
+      yield put(employeeActions.addEmployeeSuccess());
+      payload.router;
     }
   } catch (error) {
     errorNotification("Something went wrong! Try again later");

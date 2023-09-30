@@ -3,10 +3,13 @@ import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp"
 import ButtonSection from "@/components/Employee/List/ButtonSection";
 import EmployeeDataGrid from "@/components/Employee/List/EmployeeDataGrid";
 import EmployeeTable from "@/components/Employee/List/EmployeeTable";
+import { employeeActions } from "@/redux/employee/slice";
 import { ListViewEnum } from "@/redux/employee/type";
 import { useAppSelector } from "@/redux/store";
-import { Box } from "@mui/material";
+import { Backdrop, Box, CircularProgress, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 const RootBox = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -24,22 +27,47 @@ const ListRoot = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 const EmployeeList = (): JSX.Element => {
-  const listView = useAppSelector(
-    (state) => state.employeeReducer.listViewAction
+  const dispatch = useDispatch();
+  const { listViewAction, isLoading } = useAppSelector(
+    (state) => state.employeeReducer
   );
+  useEffect(() => {
+    dispatch(employeeActions.getAllEmployee());
+  }, []);
+
   return (
     <RootBox>
       <ButtonRoot>
         <ButtonSection />
       </ButtonRoot>
       <ListRoot>
-        {listView === ListViewEnum.GRID_VIEW ? (
+        {listViewAction === ListViewEnum.GRID_VIEW ? (
           <EmployeeDataGrid />
         ) : (
           <EmployeeTable />
         )}
         <ConformationPopUp />
       </ListRoot>
+      <Backdrop
+        sx={{
+          color: "#fff",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+        <Typography
+          sx={{
+            marginTop: 2,
+            fontStyle: "bold",
+          }}
+        >
+          Loading...
+        </Typography>
+      </Backdrop>
     </RootBox>
   );
 };

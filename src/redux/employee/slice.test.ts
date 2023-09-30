@@ -5,6 +5,10 @@ import { InitialEmployeeSlice, ListViewEnum } from "./type";
 describe("employeeSlice", () => {
   let store: ReturnType<typeof configureStore>;
   const initialEmployeeState: InitialEmployeeSlice = {
+    deleteConformationDetails:{
+      employeeId:'',
+      isModelOpen:false
+    },
     email: "",
     firstName: "",
     gender: "",

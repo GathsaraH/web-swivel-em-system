@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+require('dotenv').config();
 
 export enum ApiEndPointsUrl {
   GET_ALL_EMPLOYEE = "/employee/all",
@@ -8,7 +9,7 @@ export enum ApiEndPointsUrl {
 }
 
 const axiosApiInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL:  process.env[`NEXT_PUBLIC_BASE_URL`],
   headers: {
     "Content-Type": "application/json",
   },

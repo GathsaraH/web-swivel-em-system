@@ -57,7 +57,7 @@ const EmployeeTable = (): JSX.Element => {
   };
   const deleteEmployee = (employeeId: string) => {
     dispatch(employeeActions.handleDeleteModel({ isModelOpen: true, employeeId }))
-  };
+  };  
   return (
     <div>
       <TableContainer sx={{ width: "100%" }} component={Paper}>
@@ -74,7 +74,7 @@ const EmployeeTable = (): JSX.Element => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {allEmployee.map((item: SelectedEmployeeType) => (
+            {allEmployee?.map((item: SelectedEmployeeType) => (
               <TableRow key={item.employeeId}>
                 <AxisHeaderCell>
                   {/* <Image

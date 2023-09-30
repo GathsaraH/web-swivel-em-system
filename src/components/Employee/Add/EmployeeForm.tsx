@@ -18,7 +18,7 @@ import ButtonSection from "../List/ButtonSection";
 import { useDispatch } from "react-redux";
 import { employeeActions } from "@/redux/employee/slice";
 import { useAppSelector } from "@/redux/store";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { RootRoutes } from "@/util/routes";
 import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp";
 
@@ -111,6 +111,7 @@ interface FormValues {
 const EmployeeForm = (): JSX.Element => {
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const router = useRouter();
   const selectedEmployee = useAppSelector(
     (state) => state.employeeReducer.selectedEmployee
   );
@@ -123,7 +124,16 @@ const EmployeeForm = (): JSX.Element => {
   };
   const onSubmit = (values: FormValues) => {
     if (pathname === RootRoutes.ADD_EMPLOYEE) {
-      dispatch(employeeActions.addEmployee(values));
+      dispatch(
+        employeeActions.addEmployee({
+          router: router.push(RootRoutes.EMPLOYEE_LIST),
+          email: values.email,
+          firstName: values.firstName,
+          gender: values.gender,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
+        })
+      );
     } else {
       dispatch(
         employeeActions.editEmployee({

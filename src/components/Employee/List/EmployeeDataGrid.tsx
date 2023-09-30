@@ -71,8 +71,11 @@ const EmployeeDataGrid = (): JSX.Element => {
                 size="100"
                 style={{
                   display: "flex",
-                  marginLeft: "100px",
                   marginTop: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignSelf: "center",
+                  alignContent: "center",
                 }}
                 name={item.firstName}
                 src={generateAvatar()}

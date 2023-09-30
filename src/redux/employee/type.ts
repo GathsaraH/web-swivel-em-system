@@ -1,3 +1,5 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 export interface InitialEmployeeSlice {
   firstName: string;
   lastName: string;
@@ -9,7 +11,7 @@ export interface InitialEmployeeSlice {
   error: string;
   allEmployee: SelectedEmployeeType[];
   selectedEmployee: SelectedEmployeeType;
-  deleteConformationDetails:DeleteEmployeeConformationField
+  deleteConformationDetails: DeleteEmployeeConformationField;
 }
 export interface ListViewActionType {
   listViewAction: ListViewEnum;
@@ -25,6 +27,7 @@ export interface AddEmployeeType {
   email: string;
   phoneNumber: string;
   gender: string;
+  router: any;
 }
 export interface EditEmployeeDataType {
   firstName?: string;

@@ -10,48 +10,6 @@ import {
   SelectedEmployeeType,
 } from "./type";
 
-const initialData: SelectedEmployeeType[] = [
-  {
-    firstName: "Henri",
-    lastName: "Rodriguez",
-    email: "Darrin_Rippin@gmail.com",
-    phoneNumber: "+94771277218",
-    gender: "Male",
-    employeeId: "1",
-  },
-  {
-    firstName: "Lindsay",
-    lastName: "Herman",
-    email: "Ewald.Kunde@gmail.com",
-    phoneNumber: "+94771274218",
-    gender: "Female",
-    employeeId: "2",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    phoneNumber: "+94771277681",
-    gender: "Male",
-    employeeId: "3",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    phoneNumber: "+94771277681",
-    gender: "Male",
-    employeeId: "4",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    phoneNumber: "+94771277681",
-    gender: "Male",
-    employeeId: "5",
-  },
-];
 
 /**
  * Defines the initial state for the employee slice of the Redux store.
@@ -75,7 +33,7 @@ export const initialEmployeeState: InitialEmployeeSlice = {
     employeeId: "",
     isModelOpen: false,
   },
-  allEmployee: initialData,
+  allEmployee: [],
   isLoading: false,
   listViewAction: ListViewEnum.TABLE_VIEW,
 };

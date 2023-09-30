@@ -16,17 +16,27 @@ function appBarLabel(label: string, pathName: string) {
   const router = useRouter();
   return (
     <Toolbar>
-      <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-        {pathName === RootRoutes.EMPLOYEE_LIST ? (
-          <Box>
-            <MenuIcon />
-          </Box>
-        ) : (
-          <Box onClick={() => router.push(RootRoutes.EMPLOYEE_LIST)}>
-            <ArrowBackIosNewIcon />
-          </Box>
-        )}
-      </IconButton>
+      {pathName === RootRoutes.EMPLOYEE_LIST ? (
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+      ) : (
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => router.push(RootRoutes.EMPLOYEE_LIST)}
+        >
+          <ArrowBackIosNewIcon />
+        </IconButton>
+      )}
+
       <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
         {label}
       </Typography>
