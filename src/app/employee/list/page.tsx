@@ -1,6 +1,6 @@
 "use client";
+import ButtonSection from "@/components/ButtonSection/ButtonSection";
 import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp";
-import ButtonSection from "@/components/Employee/List/ButtonSection";
 import EmployeeDataGrid from "@/components/Employee/List/EmployeeDataGrid";
 import EmployeeTable from "@/components/Employee/List/EmployeeTable";
 import { employeeActions } from "@/redux/employee/slice";
