@@ -93,6 +93,8 @@ const IconRootBox = styled(Box)(({ theme }) => ({
   justifyContent: "flex-end",
   marginTop: "-4px !important",
   marginRight: "-10px !important",
+  position:'relative',
+  top:'12px'
 }));
 
 const EmployeeDataGrid = (): JSX.Element => {

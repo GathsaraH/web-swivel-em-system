@@ -11,7 +11,7 @@ export const initialEmployeeState: InitialEmployeeSlice = {
   lastName: "",
   phoneNumber: "",
   isLoading: false,
-  listViewAction: ListViewEnum.GRID_VIEW,
+  listViewAction: ListViewEnum.TABLE_VIEW,
 };
 
 const employeeSlice = createSlice({
