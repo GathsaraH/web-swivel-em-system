@@ -6,15 +6,26 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { RootRoutes } from "@/util/routes";
+import { Box } from "@mui/material";
 
-function appBarLabel(label: string) {
+function appBarLabel(label: string, pathName: string) {
+  const router = useRouter();
   return (
     <Toolbar>
       <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-        <MenuIcon />
+        {pathName === RootRoutes.EMPLOYEE_LIST ? (
+          <Box>
+            <MenuIcon />
+          </Box>
+        ) : (
+          <Box onClick={() => router.push(RootRoutes.EMPLOYEE_LIST)}>
+            <ArrowBackIosNewIcon />
+          </Box>
+        )}
       </IconButton>
       <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
         {label}
@@ -40,9 +51,10 @@ const TopBar = (): JSX.Element => {
           {appBarLabel(
             pathname === RootRoutes.ADD_EMPLOYEE
               ? "ADD EMPLOYEE"
-              : pathname === RootRoutes.EDIT_EMPLOYEE
-              ? "EDIT EMPLOYEE"
-              : "EMPLOYEE LIST"
+              : pathname === RootRoutes.EMPLOYEE_LIST
+              ? "LIST EMPLOYEE"
+              : "EDIT EMPLOYEE",
+            pathname
           )}
         </AppBar>
       </Stack>

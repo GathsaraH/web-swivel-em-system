@@ -50,19 +50,21 @@ const ButtonSection = (): JSX.Element => {
     );
     router.push(RootRoutes.EMPLOYEE_LIST);
   }
+  function handleAddEmployee(): void {
+    dispatch(employeeActions.resetSelectedEmployee());
+
+    router.push(RootRoutes.ADD_EMPLOYEE);
+  }
 
   return (
     <ButtonRootBox>
-      {pathname === RootRoutes.ADD_EMPLOYEE && (
+      {pathname !== RootRoutes.EMPLOYEE_LIST && (
         <StyledButton onClick={handleListView} variant="contained">
           LIST VIEW
         </StyledButton>
       )}
       {pathname === RootRoutes.EMPLOYEE_LIST && (
-        <StyledButton
-          onClick={() => router.push(RootRoutes.ADD_EMPLOYEE)}
-          variant="contained"
-        >
+        <StyledButton onClick={handleAddEmployee} variant="contained">
           ADD EMPLOYEE
         </StyledButton>
       )}

@@ -11,6 +11,14 @@ describe("employeeSlice", () => {
     lastName: "",
     phoneNumber: "",
     error: "",
+    selectedEmployee: {
+      email: "",
+      firstName: "",
+      gender: "",
+      lastName: "",
+      phoneNumber: "",
+      employeeId: "",
+    },
     allEmployee: [],
     isLoading: false,
     listViewAction: ListViewEnum.TABLE_VIEW,
@@ -79,6 +87,7 @@ describe("employeeSlice", () => {
       gender: "male",
       lastName: "umesh",
       phoneNumber: "0771234567",
+      employeeId: "12",
     };
     store.dispatch(
       employeeActions.getAllEmployeeSuccess({ data: [employeeData] })
@@ -97,7 +106,9 @@ describe("employeeSlice", () => {
   });
 
   it("should start editing an employee", () => {
-    store.dispatch(employeeActions.editEmployee({ employeeId: "1" }));
+    store.dispatch(
+      employeeActions.editEmployee({ employeeId: "1", data: {} } as any)
+    );
     const state = store.getState() as ReturnType<typeof employeeReducer>;
     expect(state.isLoading).toEqual(true);
   });

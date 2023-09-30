@@ -19,64 +19,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { generateAvatar } from "@/util/generateAvatar";
 import Avatar from "react-avatar";
+import { useAppSelector } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { SelectedEmployeeType } from "@/redux/employee/type";
+import { employeeActions } from "@/redux/employee/slice";
+import { useRouter } from "next/navigation";
+import { RootRoutes } from "@/util/routes";
 
-interface Data {
-  id: string;
-  firstName: string;
-  lastName: string;
-  number: string;
-  email: string;
-  gender: string;
-  photo: string;
-}
-
-const initialData: Data[] = [
-  {
-    firstName: "Henri",
-    lastName: "Rodriguez",
-    email: "Darrin_Rippin@gmail.com",
-    number: "+94771277218",
-    gender: "Male",
-    id: "1",
-    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
-  },
-  {
-    firstName: "Lindsay",
-    lastName: "Herman",
-    email: "Ewald.Kunde@gmail.com",
-    number: "+94771274218",
-    gender: "Female",
-    id: "2",
-    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    number: "+94771277681",
-    gender: "Male",
-    id: "3",
-    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    number: "+94771277681",
-    gender: "Male",
-    id: "4",
-    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
-  },
-  {
-    firstName: "Gerda",
-    lastName: "Trantow",
-    email: "Mauricio.Stehr@yahoo.com",
-    number: "+94771277681",
-    gender: "Male",
-    id: "5",
-    photo: "https://i.ibb.co/3zcGRLS/av1.jpg",
-  },
-];
 const RootTableCell = styled(TableCell)(({ theme }) => ({
   backgroundColor: "#a7c940",
   color: "white",
@@ -97,6 +46,18 @@ const AxisHeaderCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const EmployeeTable = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const allEmployee = useAppSelector(
+    (state) => state.employeeReducer.allEmployee
+  );
+  const getSelectedRowData = (rowData: SelectedEmployeeType) => {
+    dispatch(employeeActions.storeSelectedEmployee(rowData));
+    router.push(`${RootRoutes.EDIT_EMPLOYEE}/${rowData.employeeId}`);
+  };
+  const deleteEmployee = (employeeId: string) => {
+    dispatch(employeeActions.deleteEmployee({ employeeId }));
+  };
   return (
     <div>
       <TableContainer sx={{ width: "100%" }} component={Paper}>
@@ -113,8 +74,8 @@ const EmployeeTable = (): JSX.Element => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {initialData.map((item) => (
-              <TableRow key={item.id}>
+            {allEmployee.map((item: SelectedEmployeeType) => (
+              <TableRow key={item.employeeId}>
                 <AxisHeaderCell>
                   {/* <Image
                     src={item.photo}
@@ -139,7 +100,7 @@ const EmployeeTable = (): JSX.Element => {
                 <AxisHeaderCell>{item.firstName}</AxisHeaderCell>
                 <AxisHeaderCell>{item.lastName}</AxisHeaderCell>
                 <AxisHeaderCell>{item.email}</AxisHeaderCell>
-                <AxisHeaderCell>{item.photo}</AxisHeaderCell>
+                <AxisHeaderCell>{item.phoneNumber}</AxisHeaderCell>
                 <AxisHeaderCell>{item.gender}</AxisHeaderCell>
                 <AxisHeaderCell>
                   <IconRootBox>
@@ -149,12 +110,14 @@ const EmployeeTable = (): JSX.Element => {
                         backgroundColor: "#ed1700",
                         marginRight: "10px",
                       }}
+                      onClick={() => deleteEmployee(item.employeeId)}
                     >
                       <DeleteIcon style={{ color: "white" }} />
                     </IconButton>
                     <IconButton
                       aria-label="Edit"
                       style={{ backgroundColor: "#09ee80", marginLeft: "6px" }}
+                      onClick={() => getSelectedRowData(item)}
                     >
                       <EditIcon style={{ color: "white" }} />
                     </IconButton>

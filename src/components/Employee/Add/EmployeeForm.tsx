@@ -17,6 +17,9 @@ import { useFormik } from "formik";
 import ButtonSection from "../List/ButtonSection";
 import { useDispatch } from "react-redux";
 import { employeeActions } from "@/redux/employee/slice";
+import { useAppSelector } from "@/redux/store";
+import { usePathname } from "next/navigation";
+import { RootRoutes } from "@/util/routes";
 
 const RootBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -104,18 +107,30 @@ interface FormValues {
   gender: string;
 }
 
-const initialValues: FormValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phoneNumber: "",
-  gender: "male",
-};
-
 const EmployeeForm = (): JSX.Element => {
   const dispatch = useDispatch();
+  const pathname = usePathname();
+  const selectedEmployee = useAppSelector(
+    (state) => state.employeeReducer.selectedEmployee
+  );
+  const initialValues: FormValues = {
+    firstName: selectedEmployee.firstName,
+    lastName: selectedEmployee.lastName,
+    email: selectedEmployee.email,
+    phoneNumber: selectedEmployee.phoneNumber,
+    gender: selectedEmployee.gender.toLowerCase(),
+  };
   const onSubmit = (values: FormValues) => {
-    dispatch(employeeActions.addEmployee(values));
+    if (pathname === RootRoutes.ADD_EMPLOYEE) {
+      dispatch(employeeActions.addEmployee(values));
+    } else {
+      dispatch(
+        employeeActions.editEmployee({
+          employeeId: selectedEmployee.employeeId,
+          data: values,
+        })
+      );
+    }
   };
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -226,11 +241,19 @@ const EmployeeForm = (): JSX.Element => {
               </StyledFormHelper>
             </StyledRootFormBox>
           </Grid>
-          <StyledButtonBox>
-            <StyledButton type="submit" variant="outlined">
-              ADD
-            </StyledButton>
-          </StyledButtonBox>
+          {pathname === RootRoutes.ADD_EMPLOYEE ? (
+            <StyledButtonBox>
+              <StyledButton type="submit" variant="outlined">
+                ADD
+              </StyledButton>
+            </StyledButtonBox>
+          ) : (
+            <StyledButtonBox>
+              <StyledButton type="submit" variant="outlined">
+                SAVE
+              </StyledButton>
+            </StyledButtonBox>
+          )}
         </Grid>
       </StyledPaper>
     </RootBox>

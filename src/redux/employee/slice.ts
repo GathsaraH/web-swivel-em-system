@@ -6,7 +6,51 @@ import {
   InitialEmployeeSlice,
   ListViewActionType,
   ListViewEnum,
+  SelectedEmployeeType,
 } from "./type";
+
+const initialData: SelectedEmployeeType[] = [
+  {
+    firstName: "Henri",
+    lastName: "Rodriguez",
+    email: "Darrin_Rippin@gmail.com",
+    phoneNumber: "+94771277218",
+    gender: "Male",
+    employeeId: "1",
+  },
+  {
+    firstName: "Lindsay",
+    lastName: "Herman",
+    email: "Ewald.Kunde@gmail.com",
+    phoneNumber: "+94771274218",
+    gender: "Female",
+    employeeId: "2",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    phoneNumber: "+94771277681",
+    gender: "Male",
+    employeeId: "3",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    phoneNumber: "+94771277681",
+    gender: "Male",
+    employeeId: "4",
+  },
+  {
+    firstName: "Gerda",
+    lastName: "Trantow",
+    email: "Mauricio.Stehr@yahoo.com",
+    phoneNumber: "+94771277681",
+    gender: "Male",
+    employeeId: "5",
+  },
+];
 
 /**
  * Defines the initial state for the employee slice of the Redux store.
@@ -18,7 +62,15 @@ export const initialEmployeeState: InitialEmployeeSlice = {
   lastName: "",
   phoneNumber: "",
   error: "",
-  allEmployee: [],
+  selectedEmployee: {
+    email: "",
+    firstName: "",
+    gender: "",
+    lastName: "",
+    phoneNumber: "",
+    employeeId: "",
+  },
+  allEmployee: initialData,
   isLoading: false,
   listViewAction: ListViewEnum.TABLE_VIEW,
 };
@@ -73,6 +125,25 @@ const employeeSlice = createSlice({
     deleteEmployeeFiled: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload || "Something went wrong";
+    },
+    storeSelectedEmployee: (
+      state,
+      action: PayloadAction<SelectedEmployeeType>
+    ) => {
+      state.selectedEmployee.firstName = action.payload.firstName;
+      state.selectedEmployee.lastName = action.payload.lastName;
+      state.selectedEmployee.email = action.payload.email;
+      state.selectedEmployee.phoneNumber = action.payload.phoneNumber;
+      state.selectedEmployee.gender = action.payload.gender;
+      state.selectedEmployee.employeeId = action.payload.employeeId;
+    },
+    resetSelectedEmployee: (state) => {
+      state.selectedEmployee.firstName = "";
+      state.selectedEmployee.lastName = "";
+      state.selectedEmployee.email = "";
+      state.selectedEmployee.phoneNumber = "";
+      state.selectedEmployee.gender = "";
+      state.selectedEmployee.employeeId = "";
     },
   },
 });

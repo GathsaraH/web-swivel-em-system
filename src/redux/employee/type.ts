@@ -7,7 +7,8 @@ export interface InitialEmployeeSlice {
   isLoading: boolean;
   listViewAction: ListViewEnum;
   error: string;
-  allEmployee: AddEmployeeType[];
+  allEmployee: SelectedEmployeeType[];
+  selectedEmployee: SelectedEmployeeType;
 }
 export interface ListViewActionType {
   listViewAction: ListViewEnum;
@@ -32,9 +33,18 @@ export interface EditEmployeeDataType {
   gender?: string;
 }
 export interface GetAllEmployeeType {
-  data: AddEmployeeType[];
+  data: SelectedEmployeeType[];
 }
 export interface EditEmployeeType {
   employeeId: string;
   data: EditEmployeeDataType;
+}
+
+export interface SelectedEmployeeType {
+  employeeId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  gender: string;
 }
