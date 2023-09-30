@@ -30,7 +30,7 @@ const RootBox = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   minHeight: "510px",
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(1),
 }));
 const StyledFormBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -50,24 +50,39 @@ const StyledLabel = styled(InputLabel)(({ theme }) => ({
   color: "black",
   whiteSpace: "nowrap",
   width: "150px",
-  fontSize: "16px",
+  fontSize: "15px",
   fontStyle: "normal",
   fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
 }));
 const StyledTextInput = styled(TextField)(({ theme }) => ({
   color: "black",
   height: "40px",
+  "& .MuiInputBase-input": {
+    color: "black", // Text color
+  },
+  "& .MuiInput-underline:before": {
+    borderBottomColor: "black", // Border color in default state
+  },
+  "& .MuiInput-underline:hover:before": {
+    borderBottomColor: "black", // Border color on hover (match with default)
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "blue", // Border color when focused
+  },
 }));
 const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: "18px",
-  width: "520px",
-  minHeight: "530px",
-  marginTop: theme.spacing(-2),
+  width: "500px",
+  minHeight: "500px",
+  marginTop: theme.spacing(-3),
 }));
 const StyledTypo = styled(Typography)(({ theme }) => ({
-  fontWeight: "bold",
+  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   color: "black",
-  fontSize: "24px",
+  fontSize: "23px",
+  paddingRight: "130px",
+  marginTop: "3px",
+  fontWeight: "500px",
 }));
 const StyledButtonBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -91,13 +106,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const StyledFormHelper = styled(FormHelperText)(({ theme }) => ({
   marginLeft: theme.spacing(16.5),
-  marginTop: theme.spacing(9),
+  marginTop: theme.spacing(9.3),
   position: "absolute",
 }));
 const ButtonRoot = styled(Box)(({ theme }) => ({
   display: "flex",
-  marginLeft: theme.spacing(50),
-  justifyContent: "flex-end",
+  // marginLeft: theme.spacing(44),
+  justifyContent: "space-between",
   marginBottom: theme.spacing(4),
 }));
 interface FormValues {
@@ -154,6 +169,11 @@ const EmployeeForm = (): JSX.Element => {
   return (
     <RootBox>
       <ButtonRoot>
+        <StyledTypo>
+          {pathname === RootRoutes.ADD_EMPLOYEE
+            ? "Add Employee"
+            : "Edit Employee"}
+        </StyledTypo>
         <ButtonSection />
       </ButtonRoot>
       <StyledPaper elevation={3}>
@@ -163,7 +183,7 @@ const EmployeeForm = (): JSX.Element => {
             xs={12}
             md={6}
             lg={4}
-            sx={{ marginLeft: "30px", marginTop: "30px" }}
+            sx={{ marginLeft: "20px", marginTop: "15px" }}
           >
             <StyledRootFormBox>
               <StyledFormBox>

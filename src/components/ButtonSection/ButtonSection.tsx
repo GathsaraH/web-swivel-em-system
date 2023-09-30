@@ -20,6 +20,15 @@ const StyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#5100c5",
   },
 }));
+const StyledListButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#5100c5",
+  color: "white",
+  borderRadius: "18px",
+  "&:hover": {
+    backgroundColor: "#5100c5",
+  },
+  width:'150px'
+}));
 const ButtonSection = (): JSX.Element => {
   const pathname = usePathname();
   const dispatch = useDispatch<AppDispatch>();
@@ -70,9 +79,9 @@ const ButtonSection = (): JSX.Element => {
         </IconButton>
       )}
       {pathname !== RootRoutes.EMPLOYEE_LIST && (
-        <StyledButton onClick={handleListView} variant="contained">
+        <StyledListButton onClick={handleListView} variant="contained">
           LIST VIEW
-        </StyledButton>
+        </StyledListButton>
       )}
       {pathname === RootRoutes.EMPLOYEE_LIST && (
         <StyledButton onClick={handleAddEmployee} variant="contained">
