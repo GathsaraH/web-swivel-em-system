@@ -23,11 +23,16 @@ describe("employeeSlice", () => {
       },
     });
   });
-
+  it("should initialize with the initial state", () => {
+    const state = store.getState() as ReturnType<typeof employeeReducer>;
+    expect(initialEmployeeState).toEqual(initialEmployeeState);
+  });
   it("should change the list view", () => {
-    const listViewAction =  ListViewEnum.TABLE_VIEW;
+    const listViewAction = ListViewEnum.TABLE_VIEW;
     store.dispatch(
-      employeeActions.changeListView({ listViewAction: ListViewEnum.TABLE_VIEW })
+      employeeActions.changeListView({
+        listViewAction: ListViewEnum.TABLE_VIEW,
+      })
     );
     const state = store.getState() as ReturnType<typeof employeeReducer>;
     expect(state.listViewAction).toEqual(listViewAction);
@@ -110,9 +115,23 @@ describe("employeeSlice", () => {
     expect(state.isLoading).toEqual(false);
     expect(state.error).toEqual(errorMessage);
   });
-
-  it("should initialize with the initial state", () => {
+  it("should start delete an employee", () => {
+    store.dispatch(employeeActions.deleteEmployee({ employeeId: "1" }));
     const state = store.getState() as ReturnType<typeof employeeReducer>;
-    expect(initialEmployeeState).toEqual(initialEmployeeState);
+    expect(state.isLoading).toEqual(true);
+  });
+
+  it("should delete an employee successfully", () => {
+    store.dispatch(employeeActions.deleteEmployeeSuccess());
+    const state = store.getState() as ReturnType<typeof employeeReducer>;
+    expect(state.isLoading).toEqual(false);
+  });
+
+  it("should handle delete an employee failure", () => {
+    const errorMessage = "Something went wrong";
+    store.dispatch(employeeActions.deleteEmployeeFiled(errorMessage));
+    const state = store.getState() as ReturnType<typeof employeeReducer>;
+    expect(state.isLoading).toEqual(false);
+    expect(state.error).toEqual(errorMessage);
   });
 });

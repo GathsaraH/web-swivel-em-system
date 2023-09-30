@@ -64,6 +64,16 @@ const employeeSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload || "Something went wrong";
     },
+    deleteEmployee: (state, action: PayloadAction<{ employeeId: string }>) => {
+      state.isLoading = true;
+    },
+    deleteEmployeeSuccess: (state) => {
+      state.isLoading = false;
+    },
+    deleteEmployeeFiled: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload || "Something went wrong";
+    },
   },
 });
 
