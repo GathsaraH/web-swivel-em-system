@@ -24,10 +24,17 @@ export interface AddEmployeeType {
   phoneNumber: string;
   gender: string;
 }
-
+export interface EditEmployeeDataType {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phoneNumber?: string;
+  gender?: string;
+}
 export interface GetAllEmployeeType {
   data: AddEmployeeType[];
 }
-export interface EditEmployeeType { 
+export interface EditEmployeeType {
   employeeId: string;
+  data: EditEmployeeDataType;
 }

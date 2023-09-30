@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { ReduxProvider } from "../redux/provider";
 import { Box, Stack } from "@mui/material";
 import TopBar from "@/components/TopBar/TopBar";
+import { Toaster } from "react-hot-toast";
 const popins = Poppins({ subsets: ["latin"], weight: "400" });
 const RootStack = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -29,7 +30,10 @@ export default function RootLayout({
         <RootStack spacing={2}>
           <TopBar />
           <RootBox>
-            <ReduxProvider>{children}</ReduxProvider>
+            <ReduxProvider>
+              <Toaster />
+              {children}
+            </ReduxProvider>
           </RootBox>
         </RootStack>
       </body>

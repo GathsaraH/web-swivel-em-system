@@ -1,5 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
+export enum ApiEndPointsUrl {
+  GET_ALL_EMPLOYEE = "/employee/all",
+  ADD_EMPLOYEE = "/employee/add",
+  EDIT_EMPLOYEE = "/employee/edit/{employeeId}",
+  DELETE_EMPLOYEE = "/employee/delete/{employeeId}",
+}
+
 const axiosApiInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
