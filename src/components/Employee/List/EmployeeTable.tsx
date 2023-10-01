@@ -43,6 +43,7 @@ const AxisHeaderCell = styled(TableCell)(({ theme }) => ({
   borderRight: "2px solid #a7c940",
   borderBottom: "2px solid #a7c940",
   borderLeft: "2px solid #a7c940",
+  textAlign: "center",
 }));
 
 const EmployeeTable = (): JSX.Element => {

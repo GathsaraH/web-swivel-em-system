@@ -41,9 +41,9 @@ const IconRootBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-end",
   marginTop: "-4px !important",
-  marginRight: "-10px !important",
+  marginRight: "0px !important",
   position: "relative",
-  top: "12px",
+  top: "10px",
 }));
 
 const EmployeeDataGrid = (): JSX.Element => {
@@ -90,7 +90,7 @@ const EmployeeDataGrid = (): JSX.Element => {
                     variant="subtitle1"
                     component="div"
                   >
-                    {item.firstName}
+                    {item.firstName} {item.lastName}
                   </Typography>
                 </InfoBox>
                 <InfoBox>
@@ -98,7 +98,7 @@ const EmployeeDataGrid = (): JSX.Element => {
                     Email:
                   </Typography>
                   <Typography
-                    sx={{ marginLeft: "5px" }}
+                    sx={{ marginLeft: "5px", whiteSpace: "nowrap" }}
                     variant="subtitle1"
                     component="div"
                   >

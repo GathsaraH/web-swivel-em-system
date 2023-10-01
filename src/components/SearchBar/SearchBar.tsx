@@ -50,9 +50,9 @@ const SearchBar: React.FC = () => {
   }, 500);
 
   const handleClose = () => {
-    dispatch(
-      employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
-    );
+    // dispatch(
+    //   employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
+    // );
     dispatch(employeeActions.triggerSearchBar());
   };
 
@@ -86,7 +86,7 @@ const SearchBar: React.FC = () => {
             }}
             onClick={handleClose}
           >
-            Cancel
+            Close
           </Button>
         </ButtonBox>
       </RootBox>
