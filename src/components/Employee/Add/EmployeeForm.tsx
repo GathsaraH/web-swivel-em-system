@@ -19,7 +19,6 @@ import { employeeActions } from "@/redux/employee/slice";
 import { useAppSelector } from "@/redux/store";
 import { usePathname, useRouter } from "next/navigation";
 import { RootRoutes } from "@/util/routes";
-import ConformationPopUp from "@/components/ConformationPopUp/ConformationPopUp";
 import ButtonSection from "@/components/ButtonSection/ButtonSection";
 
 const RootBox = styled(Box)(({ theme }) => ({

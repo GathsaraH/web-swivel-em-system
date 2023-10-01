@@ -47,13 +47,11 @@ const ConformationPopUp = (): JSX.Element => {
     );
   };
   const handleDelete = () => {
-    dispatch(
       dispatch(
         employeeActions.deleteEmployee({
           employeeId: deleteConformationDetails.employeeId,
         })
       )
-    );
   };
   return (
     <div>

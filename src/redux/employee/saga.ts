@@ -120,17 +120,18 @@ export function* watchDeleteEmployee({
   try {
     const response = yield call(callDeleteEmployee, payload.employeeId);
     if (response.status === 200) {
-      successNotification("Employee deleted successfully!");
       yield put(
         employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
       );
-      yield put(employeeActions.deleteEmployeeSuccess());
       yield put(
         employeeActions.handleDeleteModel({
           isModelOpen: false,
           employeeId: "",
         })
       );
+      successNotification("Employee deleted successfully!");
+      yield put(employeeActions.deleteEmployeeSuccess());
+    
     }
   } catch (error: any) {
     yield put(employeeActions.deleteEmployeeFiled(error.message));

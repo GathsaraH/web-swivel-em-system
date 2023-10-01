@@ -34,7 +34,9 @@ const EmployeeList = (): JSX.Element => {
     (state) => state.employeeReducer
   );
   useEffect(() => {
-    dispatch(employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY }));
+    dispatch(
+      employeeActions.getAllEmployee({ searchTerm: SearchTypeEnum.NO_QUERY })
+    );
   }, []);
 
   return (
@@ -48,10 +50,10 @@ const EmployeeList = (): JSX.Element => {
         ) : (
           <EmployeeTable />
         )}
-        <ConformationPopUp />
       </ListRoot>
       <Loader />
       <SearchBar />
+      <ConformationPopUp />
     </RootBox>
   );
 };
